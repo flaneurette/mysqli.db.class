@@ -3,11 +3,11 @@
 error_reporting(E_ALL); 	// production values
 ini_set('display_errors', 1);   // production values
 
-define('HOST', 'localhost');
 define('CHARSET', 'utf8');
+define('HOST', 'localhost');
+define('DATABASE', '');
 define('USERNAME', '');
 define('PASSWORD', '');
-define('DATABASE', '');
 
 class DB {
 	private static $instance;
