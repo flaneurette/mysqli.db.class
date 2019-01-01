@@ -7,10 +7,12 @@ Examples of use:
 
   ------
   	SELECT:
+	
 	$db = new sql();
-	$test = $db->select('table','*','field','value');
+	Example: $test = $db->select('test','*','id',1);
+	Will become this query: SELECT * FROM TEST WHERE ID = 1
     		echo "<pre>";
-    		print_r($test);
+    			print_r($test);
     		echo "</pre>";
 	$db->close();
   ------
@@ -18,7 +20,7 @@ Examples of use:
 	$db = new sql();
 	$test = $db->query("SELECT * FROM test");
     		echo "<pre>";
-    		print_r($test);
+    			print_r($test);
     		echo "</pre>";
 	$db->close();
   ------ 
