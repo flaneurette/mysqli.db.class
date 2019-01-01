@@ -7,6 +7,7 @@ define('HOST', 'localhost');
 define('USERNAME', '');
 define('PASSWORD', '');
 define('DATABASE', '');
+define('CHARSET', 'utf8');
 define('SPACE', ' ');
 
 
@@ -15,7 +16,7 @@ class DB {
 	private $connection;
 	private function __construct() {
 		$this->connection = new mysqli(HOST,USERNAME,PASSWORD,DATABASE);
-		$this->connection->set_charset("utf8");
+		$this->connection->set_charset(CHARSET);
 	}
 	public static function init() {
 		if(is_null(self::$instance)) {
