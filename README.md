@@ -8,7 +8,7 @@ Examples of use:
 SELECT:
   ------
 	$db = new sql();
-	$table    = 'test'
+	$table    = 'test';
 	$column   = 'id';
 	$value    =  1;
 	$operator = '*';
@@ -20,7 +20,6 @@ SELECT:
 	
 QUERY (direct query, no security):
   ------
-
 	$db = new sql();
 	$test = $db->query("SELECT * FROM test");
 	echo "<pre>". print_r($test) . "</pre>";
@@ -29,24 +28,27 @@ QUERY (direct query, no security):
 INSERT:
   ------ 
 	$db = new sql();
+	$table   = 'test';
 	$columns = ['foo','bar'];
-	$values = ['abc','efg'];
-	$db->insert('test',$columns,$values);
+	$values  = ['abc','efg'];
+	$db->insert($table,$columns,$values);
 	$db->close();
 	
 UPDATE:
   ------
 	$db = new sql();
+	$table    = 'test';
+	$columns  = ['foo','bar'];
+	$values   = ['abc','efg'];
 	$id = 2;
-	$columns = ['foo','bar'];
-	$values = ['abc','efg'];
-	$db->update('test',$columns,$values,$id);
+	$db->update($table,$columns,$values,$id);
 	$db->close();
 	
 DELETE ON ID:
   ------
 	$db = new sql();
-	$id = 2;
-	$db->delete('test',$id);
+	$table  = 'test';
+	$id 	= 2;
+	$db->delete($table,$id);
 	$db->close();
 	
