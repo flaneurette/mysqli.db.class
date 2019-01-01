@@ -128,7 +128,7 @@ class sql {
 		$stmt   = $this->database->prepare($query);
 		$type   = $this->bindvalues($values);
 		$params = array($type);
-		echo $query;
+		
 		for($t=0;$t<$countvalues;$t++) {
 			$params[] = $this->clean($values[$t],'cols');
 		}
@@ -182,10 +182,10 @@ class sql {
 
 	public function delete($table,$id) {
 		
-		$id = isset($id) ? $id : exit;
+		$id = isset($id) ? (int)$id : exit;
 		$query = "DELETE FROM ".$this->clean($table,'table')." WHERE id = ? LIMIT 1";
 		$stmt  = $this->database->prepare($query);
-		$stmt->bind_param("i", (int)$id);
+		$stmt->bind_param("i", $id);
 		$stmt->execute();
 		$stmt->close();	
 		
