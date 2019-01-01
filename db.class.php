@@ -1,15 +1,13 @@
 <?php
 
-error_reporting(E_ALL); 
-ini_set('display_errors', 1);
+error_reporting(E_ALL); 	// production values
+ini_set('display_errors', 1);   // production values
 
 define('HOST', 'localhost');
+define('CHARSET', 'utf8');
 define('USERNAME', '');
 define('PASSWORD', '');
 define('DATABASE', '');
-define('CHARSET', 'utf8');
-define('SPACE', ' ');
-
 
 class DB {
 	private static $instance;
