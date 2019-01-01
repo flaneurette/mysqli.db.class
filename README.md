@@ -8,13 +8,13 @@ Examples of use:
   ------
   	SELECT:
 	$db = new sql();
-	$test = $db->select('test','*','foo','bar');
+	$test = $db->select('table','*','field','value');
     		echo "<pre>";
     		print_r($test);
     		echo "</pre>";
 	$db->close();
   ------
-  	SELECT (direct query, no checks):
+  	QUERY (direct query, no security):
 	$db = new sql();
 	$test = $db->query("SELECT * FROM test");
     		echo "<pre>";
@@ -24,17 +24,17 @@ Examples of use:
   ------ 
   	INSERT:
 	$db = new sql();
-	$cols = ['foo','bar'];
-	$vals = ['abc','efg'];
-	$db->insert('test',$cols,$vals);
+	$columns = ['foo','bar'];
+	$values = ['abc','efg'];
+	$db->insert('test',$columns,$values);
 	$db->close();
   ------
   	UPDATE:
 	$db = new sql();
 	$id = 2;
-	$cols = ['foo','bar'];
-	$vals = ['abc','efg'];
-	$db->update('test',$cols,$vals,$id);
+	$columns = ['foo','bar'];
+	$values = ['abc','efg'];
+	$db->update('test',$columns,$values,$id);
 	$db->close();
   ------
   	DELETE ON ID:
