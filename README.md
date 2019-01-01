@@ -6,7 +6,7 @@ A minimal and lean PHP mysqli database class. 256 lines of code.
 Examples of use:
 
   ------
-  	SELECT:
+  	*SELECT:*
 	
 	$db = new sql();
 	// Example: 
