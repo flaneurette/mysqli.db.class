@@ -9,19 +9,20 @@ Examples of use:
   	SELECT:
 	
 	$db = new sql();
-	Example: $test = $db->select('test','*','id',1);
-	Will become this query: SELECT * FROM TEST WHERE ID = 1
-    		echo "<pre>";
-    			print_r($test);
-    		echo "</pre>";
+	// Example: 
+	$test = $db->select('test','*','id',1);
+	// Will become this query: SELECT * FROM TEST WHERE ID = 1
+    	echo "<pre>";
+    		print_r($test);
+    	echo "</pre>";
 	$db->close();
   ------
   	QUERY (direct query, no security):
 	$db = new sql();
 	$test = $db->query("SELECT * FROM test");
-    		echo "<pre>";
-    			print_r($test);
-    		echo "</pre>";
+    	echo "<pre>";
+    		print_r($test);
+    	echo "</pre>";
 	$db->close();
   ------ 
   	INSERT:
