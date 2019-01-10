@@ -31,7 +31,6 @@ class DB {
 		}
 	}
 }
-
 class sql {
 	
 	protected $database;
@@ -65,7 +64,6 @@ class sql {
  	public function close() {  
 		$this->database->close();
 	}
-
 	public function bindvalues($values) {
 		$type ='';
 		foreach($values as $var){
@@ -113,7 +111,6 @@ class sql {
 		// returns array with all records, read more:
 		// http://php.net/manual/en/class.mysqli-stmt.php		
 	}
-
 	
 	public function insert($table,$columns,$values) {
 		
@@ -136,7 +133,6 @@ class sql {
 		$tmp = array();
 		foreach($params as $key => $value) $tmp[$key] = &$params[$key];
 		call_user_func_array(array($stmt, 'bind_param'), $tmp);
-
 		$stmt->execute();
 		$stmt->close();
 	}
@@ -150,20 +146,17 @@ class sql {
 		$queryset = [''];
 		
 		$query = 'UPDATE '.$this->clean($table,'table').' SET ';
-
 		for($k=0;$k<$countcols;$k++) {
 			$query .= '`'.$this->clean($columns[$k],'cols').'` = ? ,';				
 		}
 			
 		$query = substr($query,0,-1);
 		$query .= ' WHERE `id` = ?';
-
 		$stmt  = $this->database->prepare($query);
 		$type  = $this->bindvalues($values);
 		$type .= 'i';
 		
 		$params = array($type);
-
 		for($t=0;$t<$countvalues;$t++) {
 			$params[] = $values[$t];
 		}
@@ -179,7 +172,45 @@ class sql {
 		
 		return true;
 	}
+	
+	public function countrows($table,$column,$value) {
+		
+		$numrows = 'No records found.';
+		
+		$query = "SELECT COUNT(*) FROM `".$this->clean($table,'table')."` WHERE ".$this->clean($column,'cols')." = ? ";
+		$stmt  = $this->database->prepare($query);
 
+		if(is_int($value)) {
+			$stmt->bind_param("i", $value);
+			} else {
+			$stmt->bind_param("s", $value);
+		}
+	
+		if($stmt != NULL) {
+			$stmt->execute();
+			$stmt->store_result();  
+			$res = [];
+			$data = [];
+			$array = [];
+			$meta = $stmt->result_metadata();
+			while($field = $meta->fetch_field()) {
+				  $res[] = &$data[$field->name];
+			}
+			call_user_func_array(array($stmt, 'bind_result'), $res);
+			$i=0;
+			while($stmt->fetch()) {
+				  $array[$i] = array();
+				  foreach($data as $k=>$v)
+				  $array[$i][$k] = $v;
+				  $i++;
+			}
+			$numrows = (int)$array[0]['COUNT(*)'];
+			$stmt->close();
+		}
+			
+		return $numrows;
+	}
+	
 	public function delete($table,$id) {
 		
 		$id = isset($id) ? (int)$id : exit;
@@ -189,7 +220,7 @@ class sql {
 		$stmt->execute();
 		$stmt->close();	
 		
-	}
+	}	
 	
 	public function clean($string,$method='',$buffer=255) {
 		
@@ -197,59 +228,39 @@ class sql {
 		$strbf = '';
 		
 		switch($method) {
-			
 			case 'alpha':
 				$this->data =  preg_replace('/[^a-zA-Z]/','', $string);
 			break;
-			
 			case 'num':
 				$this->data =  preg_replace('/[^0-9]/','', $string);
 			break;
-			
 			case 'unicode':
 				$this->data =  preg_replace("/[^[:alnum:][:space:]]/u", '', $string);
 			break;
-			
 			case 'encode':
 				$this->data =  htmlspecialchars($string,ENT_QUOTES,'UTF-8');
 			break;
-			
 			case 'query':
 				$search  = ['`','"','\'',';'];
 				$replace = ['','','',''];
 				$this->data = str_replace($search,$replace,$string);
 			break;
-			
 			case 'cols':
+				// comma is allowed for selecting multiple columns.
 				$search  = ['`','"','\'',';'];
 				$replace = ['','','',''];
 				$this->data = str_replace($search,$replace,$string);
 			break;
-			
 			case 'table':
 				$search  = ['`','"',',','\'',';','.','$','%'];
 				$replace = ['','','','','','','',''];
 				$this->data = str_replace($search,$replace,$string);
 			break;
-			
-			case 'buffer':
-				$buffer = isset($buffer) ? $buffer : 255;
-				while ($tmp = $string[$buffer++]) {
-					$this->strbf  = $tmp;
-				}
-				for ($i = 0; $i < ($buffer - 1); $i++) {
-					$this->data .= $string[$i];
-				}
-			break;
-			
 			default:
 			return $this->data;
-			
 			}
-		
 		return $this->data;
 	}
-
 }
 
 ?>
