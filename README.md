@@ -20,7 +20,7 @@ SELECT:
 	// becomes: select * from test where id = 1
     	echo "<pre>". print_r($test) . "</pre>";
 
-COUNT
+COUNT:
   ------ 
 	$table  = 'test';
 	$column = 'foo'
