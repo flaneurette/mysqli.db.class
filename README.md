@@ -16,8 +16,7 @@ SELECT:
 	$value    =  1;
 	$operator = '*';
 	
-	$test = $db->select($table,$operator,$column,$value);
-	// becomes: select * from test where id = 1
+	$test = $db->select($table,$operator,$column,$value); // becomes: select * from test where id = 1
     	echo "<pre>". print_r($test) . "</pre>";
 
 COUNT:
@@ -50,7 +49,6 @@ DELETE ON ID:
 	
 QUERY (direct query, no security):
   ------
-	$db = new sql();
 	$test = $db->query("SELECT * FROM test");
 	echo "<pre>". print_r($test) . "</pre>";
 
