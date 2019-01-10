@@ -15,9 +15,10 @@ SELECT:
 	$column   = 'id';
 	$value    =  1;
 	$operator = '*';
+	// becomes: select * from test where id = 1
 	
-	$test = $db->select($table,$operator,$column,$value); // becomes: select * from test where id = 1
-    	echo "<pre>". print_r($test) . "</pre>";
+	$test = $db->select($table,$operator,$column,$value); 
+	echo "<pre>". print_r($test) . "</pre>";
 
 COUNT:
   ------ 
