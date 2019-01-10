@@ -1,5 +1,5 @@
 # class.DB
-Minimal PHP database class.
+Minimal PHP mysqli database class.
 
 A minimal and lean PHP mysqli database class. 256 lines of code.
 
