@@ -173,10 +173,16 @@ class sql {
 		return true;
 	}
 	
-	public function countrows($table,$column,$value) {
+	public function countrows($table,$column,$value,$lock=0) {
 		
-		$numrows = 0; // default
+		$numrows = 0;
 		$query = "SELECT COUNT(*) FROM `".$this->clean($table,'table')."` WHERE ".$this->clean($column,'cols')." = ? ";
+		
+		// prevents race condition when checking rownumbers.
+		if($lock == 'LOCK' || $lock == 1) {
+			$query .=" FOR UPDATE";
+		}
+		
 		$stmt  = $this->database->prepare($query);
 
 		if(is_int($value)) {
