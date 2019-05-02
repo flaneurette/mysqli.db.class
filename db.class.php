@@ -175,8 +175,7 @@ class sql {
 	
 	public function countrows($table,$column,$value) {
 		
-		$numrows = 'No records found.';
-		
+		$numrows = 0; // default
 		$query = "SELECT COUNT(*) FROM `".$this->clean($table,'table')."` WHERE ".$this->clean($column,'cols')." = ? ";
 		$stmt  = $this->database->prepare($query);
 
@@ -187,24 +186,12 @@ class sql {
 		}
 	
 		if($stmt != NULL) {
+			
 			$stmt->execute();
-			$stmt->store_result();  
-			$res = [];
-			$data = [];
-			$array = [];
-			$meta = $stmt->result_metadata();
-			while($field = $meta->fetch_field()) {
-				  $res[] = &$data[$field->name];
+			$stmt->bind_result($count);
+			while ($stmt->fetch()) {
+				return $count;
 			}
-			call_user_func_array(array($stmt, 'bind_result'), $res);
-			$i=0;
-			while($stmt->fetch()) {
-				  $array[$i] = array();
-				  foreach($data as $k=>$v)
-				  $array[$i][$k] = $v;
-				  $i++;
-			}
-			$numrows = (int)$array[0]['COUNT(*)'];
 			$stmt->close();
 		}
 			
