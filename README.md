@@ -25,7 +25,8 @@ COUNT:
 	$table  = 'test';
 	$column = 'foo'
 	$value  = 'abc';
-	$db->countrows($table,$column,$value);
+	$lock   = 'LOCK';  // optional, locks the table to prevent race condition.
+	$db->countrows($table,$column,$value,$lock);
 	
 INSERT:
   ------ 
