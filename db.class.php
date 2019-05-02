@@ -112,8 +112,9 @@ class sql {
 		// http://php.net/manual/en/class.mysqli-stmt.php		
 	}
 	
+	// returns ID of last inserted row, or false.
 	public function insert($table,$columns,$values) {
-		
+
 		$countcols = count($columns);
 		$countvalues = count($values);
 		
@@ -134,7 +135,13 @@ class sql {
 		foreach($params as $key => $value) $tmp[$key] = &$params[$key];
 		call_user_func_array(array($stmt, 'bind_param'), $tmp);
 		$stmt->execute();
+		$id = $stmt->insert_id;
 		$stmt->close();
+		if(is_int($id)) { 
+			return $id;
+			} else {
+			return false;
+		}
 	}
 	
 	public function update($table,$columns,$values,$id) {
