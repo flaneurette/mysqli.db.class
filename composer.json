@@ -1,5 +1,5 @@
 {
-    "name": "flaneurette/mysqli.db.class",
+    "name": "flaneurette/mysqli-db-class",
     "description": "A lightweight mysqli hook",
     "require": {
         "php": ">=5.6",
