@@ -12,6 +12,8 @@ The class can be installed via two methods, composer and manual installation.
 	composer require flaneurette/mysqli-db-class:dev-main
 ### Manual:
 
+Clone or download the dev-main.
+
 # Examples of use:
 
 OPEN DB
