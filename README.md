@@ -9,7 +9,7 @@ The class can be installed via two methods, composer and manual installation.
 
 ### Composer: 
 
-	composer require flaneurette/composer require flaneurette/mysqli-db-class:dev-main
+	composer require flaneurette/mysqli-db-class:dev-main
 ### Manual:
 
 # Examples of use:
