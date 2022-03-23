@@ -3,7 +3,16 @@ Minimal PHP mysqli database class.
 
 A minimal and lean PHP mysqli database class. 256 lines of code.
 
-Examples of use:
+# Installing
+
+The class can be installed via two methods, composer and manual installation.
+
+### Composer: 
+
+	composer require flaneurette/composer require flaneurette/mysqli-db-class:dev-main
+### Manual:
+
+# Examples of use:
 
 OPEN DB
   ------
