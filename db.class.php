@@ -222,19 +222,41 @@ class sql {
 		
 	}	
 	
+	public function intcast($int) {
+		
+		if(strlen($int) > 32) {
+			$int = 0;
+		}
+		
+		if(!is_numeric($int)) {
+			$int = intval($int);
+		}
+		
+		if(is_string($int)) {
+			$this->clean($int,'num');
+		}
+		
+		if($int >=0) {
+			$int = intval($int);
+			$int = (int)$int;
+		}
+
+		return (int)$int;
+	}
+	
 	public function clean($string,$method='') {
 		
 		$data = '';
 		
 		switch($method) {
 			case 'alpha':
-				$data =  preg_replace('/[^a-zA-Z]/','', $string);
+				$data =  preg_replace('/[a-zA-Z]+/','', $string);
 			break;
 			case 'num':
-				$data =  preg_replace('/[^0-9]/','', $string);
+				$data =  preg_replace('/[0-9]+/','', $string);
 			break;
 			case 'unicode':
-				$data =  preg_replace("/[^[:alnum:][:space:]]/u", '', $string);
+				$data =  preg_replace("/[[:alnum:][:space:]]/u", '', $string);
 			break;
 			case 'encode':
 				$data =  htmlspecialchars($string,ENT_QUOTES,'UTF-8');
